@@ -1,4 +1,5 @@
 import { Configuration, OpenAIApi } from "openai";
+import OpenAI from 'openai';
 import request from "request";
 require("dotenv").config();
 
