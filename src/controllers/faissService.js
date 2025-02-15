@@ -26,7 +26,7 @@ async function getEmbedding(text) {
 }
 
 // Định nghĩa đường dẫn
-const faissIndexPath = "../services/faiss_index.idx";
+const faissIndexPath = "./src/services/faiss_index.idx";
 const textChunksPath = "../services/text_chunks.json"; // Đổi từ .pkl sang .json nếu JSON
 
 // Đọc dữ liệu văn bản nếu có
