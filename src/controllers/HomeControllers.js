@@ -1,7 +1,7 @@
 // const { request } = require('express');
+require('dotenv').config();
 import request from "request";
 
-require('dotenv').config();
 let getHomePage = (req, res) => {
     return res.render('homepage.ejs');
 };
