@@ -31,34 +31,39 @@ const openai = new OpenAI({
 //     }
 // };
 
-export async function generateResponse(query) {
+const generate_response = async (query) => {
     try {
+        // Tìm kiếm các đoạn văn bản tương tự
         const relevantTexts = await searchSimilarText(query);
-        const context = relevantTexts.join('\n\n');
+        const context = relevantTexts.join("\n\n");
 
+        // Tạo prompt
         const prompt = `
-      Bạn là một chatbot tư vấn tuyển sinh. Dưới đây là một số thông tin về tuyển sinh:
-  
-      ${context}
-  
-      Người dùng hỏi: ${query}
-  
-      Trả lời dựa trên thông tin trên một cách ngắn gọn và dễ hiểu:
-      `;
+        Bạn là một chatbot tư vấn tuyển sinh. Dưới đây là một số thông tin về tuyển sinh:
 
+        ${context}
+
+        Người dùng hỏi: ${query}
+
+        Trả lời dựa trên thông tin trên một cách ngắn gọn và dễ hiểu:
+        `;
+
+        // Gọi OpenAI API để tạo câu trả lời
         const response = await openai.chat.completions.create({
-            model: 'gpt-4o-mini',
+            model: "gpt-4o-mini",
             messages: [
-                { role: 'system', content: 'Bạn là một chuyên gia tư vấn tuyển sinh.' },
-                { role: 'user', content: prompt },
+                { role: "system", content: "Bạn là một chuyên gia tư vấn tuyển sinh." },
+                { role: "user", content: prompt }
             ],
             temperature: 0.7,
-            max_tokens: 200,
+            max_tokens: 200
         });
 
         return response.choices[0].message.content.trim();
     } catch (error) {
-        console.error('Lỗi khi gọi OpenAI API:', error);
-        return 'Xin lỗi, tôi không thể trả lời ngay bây giờ.';
+        console.error("Lỗi khi gọi OpenAI API:", error);
+        return "Xin lỗi, tôi không thể trả lời ngay bây giờ.";
     }
-}
+};
+
+module.exports = { generate_response };

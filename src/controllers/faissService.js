@@ -46,7 +46,7 @@ async function loadFaissIndex() {
 const index = await loadFaissIndex();
 
 // Hàm tìm kiếm văn bản tương tự với FAISS
-export async function searchSimilarText(query, top_k = 3) {
+const searchSimilarText = async (query, top_k = 3) => {
     const queryEmbedding = await getEmbedding(query);
 
     if (!queryEmbedding) {
@@ -62,3 +62,5 @@ export async function searchSimilarText(query, top_k = 3) {
     const results = indices.map(i => textChunks[i]);
     return results;
 }
+
+module.exports = { searchSimilarText };
