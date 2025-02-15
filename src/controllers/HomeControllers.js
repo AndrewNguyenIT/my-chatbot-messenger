@@ -122,26 +122,9 @@ let handleMessage = async (sender_psid, received_message) => {
         let aiResponse = await generate_response(userMessage);
 
         response = { "text": aiResponse };
-    } else if (received_message.attachments) {
+    } else {
         // Nếu người dùng gửi ảnh, chatbot vẫn xử lý như cũ
-        let attachment_url = received_message.attachments[0].payload.url;
-        response = {
-            "attachment": {
-                "type": "template",
-                "payload": {
-                    "template_type": "generic",
-                    "elements": [{
-                        "title": "Is this the right picture?",
-                        "subtitle": "Tap a button to answer.",
-                        "image_url": attachment_url,
-                        "buttons": [
-                            { "type": "postback", "title": "Yes!", "payload": "yes" },
-                            { "type": "postback", "title": "No!", "payload": "no" }
-                        ],
-                    }]
-                }
-            }
-        };
+        response = { "text": "Tôi chỉ có thể hiểu tin nhắn văn bản!" };
     }
 
     // Gửi phản hồi đến người dùng
