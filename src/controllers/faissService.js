@@ -26,7 +26,7 @@ async function getEmbedding(text) {
 }
 
 // Định nghĩa đường dẫn
-const faissIndexPath = "./src/services/faiss_index.idx";
+const faissIndexPath = "../services/faiss_index.idx";
 const textChunksPath = "../services/text_chunks.json"; // Đổi từ .pkl sang .json nếu JSON
 
 // Đọc dữ liệu văn bản nếu có
@@ -56,9 +56,18 @@ async function loadFaissIndex() {
 
 // Khởi tạo FAISS Index
 let index = null;
-(async () => {
+
+async function initFaiss() {
     index = await loadFaissIndex();
-})();
+    if (index) {
+        console.log("FAISS Index đã tải thành công!");
+    } else {
+        console.warn("Không thể tải FAISS Index.");
+    }
+}
+
+// Gọi hàm khởi tạo khi server khởi động
+initFaiss();
 
 // Hàm tìm kiếm văn bản tương tự với FAISS
 async function searchSimilarText(query, top_k = 3) {
