@@ -1,7 +1,7 @@
-import faiss from "faiss-node";
-import { OpenAI } from "openai";
-import fs from "fs";
-import dotenv from "dotenv";
+const faiss = require("faiss-node");
+const { OpenAI } = require("openai");
+const fs = require("fs");
+const dotenv = require("dotenv");
 
 dotenv.config();
 
@@ -11,7 +11,7 @@ const openai = new OpenAI({
 });
 
 // Hàm tạo embedding cho văn bản
-export async function getEmbedding(text) {
+async function getEmbedding(text) {
     try {
         const response = await openai.embeddings.create({
             model: "text-embedding-3-small",
@@ -25,28 +25,48 @@ export async function getEmbedding(text) {
     }
 }
 
-// Load FAISS index từ file
+// Định nghĩa đường dẫn
 const faissIndexPath = "../services/faiss_index.idx";
-const textChunksPath = "../services/text_chunks.pkl";
+const textChunksPath = "../services/text_chunks.json"; // Đổi từ .pkl sang .json nếu JSON
 
+// Đọc dữ liệu văn bản nếu có
 let textChunks = [];
 if (fs.existsSync(textChunksPath)) {
-    const buffer = fs.readFileSync(textChunksPath);
-    textChunks = JSON.parse(buffer.toString());
+    try {
+        const buffer = fs.readFileSync(textChunksPath, "utf8");
+        textChunks = JSON.parse(buffer);
+    } catch (error) {
+        console.error("Lỗi khi đọc text_chunks:", error);
+    }
 }
 
 // Hàm tải FAISS Index
 async function loadFaissIndex() {
     if (fs.existsSync(faissIndexPath)) {
-        return faiss.read_index(faissIndexPath);
+        try {
+            return await faiss.read_index(faissIndexPath);
+        } catch (error) {
+            console.error("Lỗi khi tải FAISS index:", error);
+            return null;
+        }
     }
-    throw new Error("FAISS Index không tồn tại!");
+    console.warn("FAISS Index không tồn tại!");
+    return null;
 }
 
-const index = await loadFaissIndex();
+// Khởi tạo FAISS Index
+let index = null;
+(async () => {
+    index = await loadFaissIndex();
+})();
 
 // Hàm tìm kiếm văn bản tương tự với FAISS
-const searchSimilarText = async (query, top_k = 3) => {
+async function searchSimilarText(query, top_k = 3) {
+    if (!index) {
+        console.error("FAISS Index chưa được tải.");
+        return ["Không thể tải FAISS Index."];
+    }
+
     const queryEmbedding = await getEmbedding(query);
 
     if (!queryEmbedding) {
@@ -59,8 +79,12 @@ const searchSimilarText = async (query, top_k = 3) => {
     // Tìm kiếm trong FAISS
     index.search(queryEmbedding, top_k, distances, indices);
 
-    const results = indices.map(i => textChunks[i]);
+    // Chuyển indices từ Int32Array thành mảng bình thường
+    const indicesArray = Array.from(indices);
+
+    const results = indicesArray.map(i => textChunks[i] || "Không tìm thấy kết quả.");
     return results;
 }
 
+// Xuất module theo kiểu CommonJS
 module.exports = { searchSimilarText };

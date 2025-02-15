@@ -3,7 +3,8 @@ import request from 'request';
 
 import { searchSimilarText } from "./faissService.js";
 
-import dotenv from 'dotenv';
+const dotenv = require("dotenv");
+
 dotenv.config();
 
 // Cấu hình OpenAI API
