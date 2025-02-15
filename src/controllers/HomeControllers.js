@@ -1,4 +1,6 @@
-require('dotenv').config();
+// require('dotenv').config();
+import dotenv from 'dotenv';
+dotenv.config();
 import request from "request";
 
 import { generate_response } from "../controllers/HomeService";
