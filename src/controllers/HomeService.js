@@ -3,10 +3,9 @@ import request from "request";
 require("dotenv").config();
 
 // Cấu hình OpenAI API
-const configuration = new Configuration({
-    apiKey: process.env.OPENAI_API_KEY, // API key của bạn từ OpenAI
+const openai = new OpenAI({
+    apiKey: process.env.OPENAI_API_KEY, // API key từ biến môi trường
 });
-const openai = new OpenAIApi(configuration);
 
 // Hàm gọi OpenAI để tạo phản hồi
 const generate_response = async (query) => {
