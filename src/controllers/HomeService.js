@@ -40,13 +40,13 @@ const generate_response = async (query) => {
 
         // Tạo prompt
         const prompt = `
-        Bạn là một chatbot tư vấn tuyển sinh. Dưới đây là một số thông tin về tuyển sinh:
+        Bạn là một chatbot tư vấn tuyển sinh của trường Đại học Cần Thơ. Dưới đây là một số thông tin về tuyển sinh:
 
         ${context}
 
         Người dùng hỏi: ${query}
 
-        Trả lời dựa trên thông tin trên một cách ngắn gọn và dễ hiểu:
+        Trả lời dựa trên thông tin trên một cách ngắn gọn và dễ hiểu, không được tự sinh ra câu trả lời. Nếu không đủ thông tin bạn có thể gửi link này cho người hỏi :https://tuyensinh.ctu.edu.vn/dai-hoc-chinh-quy/thong-tin-tuyen-sinh.html
         `;
 
         // Gọi OpenAI API để tạo câu trả lời
