@@ -1,4 +1,3 @@
-const faiss = require("faiss-node");
 const { OpenAI } = require("openai");
 const fs = require("fs");
 const dotenv = require("dotenv");
