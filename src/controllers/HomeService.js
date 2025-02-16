@@ -67,4 +67,48 @@ const generate_response = async (query) => {
     }
 };
 
-module.exports = { generate_response };
+let chatBotService = {
+    // Đánh dấu tin nhắn là đã xem
+    markMessageSeen: async (sender_psid) => {
+        let request_body = {
+            "recipient": { "id": sender_psid },
+            "sender_action": "mark_seen"
+        };
+
+        await request({
+            "uri": "https://graph.facebook.com/v2.6/me/messages",
+            "qs": { "access_token": process.env.PAGE_ACCESS_TOKEN },
+            "method": "POST",
+            "json": request_body
+        }, (err, res, body) => {
+            if (err) {
+                console.error("Unable to mark message as seen:", err);
+            } else {
+                console.log("Message marked as seen!");
+            }
+        });
+    },
+
+    // Gửi trạng thái "đang nhập"
+    sendTypingOn: async (sender_psid) => {
+        let request_body = {
+            "recipient": { "id": sender_psid },
+            "sender_action": "typing_on"
+        };
+
+        await request({
+            "uri": "https://graph.facebook.com/v2.6/me/messages",
+            "qs": { "access_token": process.env.PAGE_ACCESS_TOKEN },
+            "method": "POST",
+            "json": request_body
+        }, (err, res, body) => {
+            if (err) {
+                console.error("Unable to send typing status:", err);
+            } else {
+                console.log("Typing status sent!");
+            }
+        });
+    }
+};
+
+module.exports = { generate_response, chatBotService };

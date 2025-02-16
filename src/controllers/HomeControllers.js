@@ -3,7 +3,7 @@ import dotenv from 'dotenv';
 dotenv.config();
 import request from "request";
 
-import { generate_response } from "../controllers/HomeService";
+import { generate_response, chatBotService } from "../controllers/HomeService";
 
 let getHomePage = (req, res) => {
     return res.render('homepage.ejs');
@@ -115,6 +115,12 @@ let getWebhook = (req, res) => {
 
 let handleMessage = async (sender_psid, received_message) => {
     let response;
+
+    // Đánh dấu tin nhắn là đã được xem
+    await chatBotService.markMessageSeen(sender_psid);
+
+    // Gửi trạng thái "đang nhập" để người dùng biết chatbot đang trả lời
+    await chatBotService.sendTypingOn(sender_psid);
 
     // Nếu tin nhắn chứa văn bản
     if (received_message.text) {
