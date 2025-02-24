@@ -3,7 +3,7 @@ import dotenv from 'dotenv';
 dotenv.config();
 import request from "request";
 
-import { generate_response, chatBotService } from "../controllers/HomeService";
+import { generate_response } from "../services/chatBotService";
 
 let getHomePage = (req, res) => {
     return res.render('homepage.ejs');
