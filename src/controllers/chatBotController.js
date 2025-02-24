@@ -200,14 +200,14 @@ function callSendAPI(sender_psid, response) {
     });
 }
 
-let setupProfile = (req, res) => {
+let setupProfile = async (req, res) => {
     let request_body = {
         "get_started": { "payload": "GET_STARTED" },
         "whitelisted_domains": ["https://my-chatbot-messenger.onrender.com"]
     }
 
     // Send the HTTP request to the Messenger Platform
-    request({
+    await request({
         "uri": `https://graph.facebook.com/v22.0/me/messenger_profile?access_token=${process.env.PAGE_ACCESS_TOKEN}`,
         "qs": { "access_token": process.env.PAGE_ACCESS_TOKEN },
         "method": "POST",
@@ -220,6 +220,8 @@ let setupProfile = (req, res) => {
             console.error("Unable to set up profile:" + err);
         }
     });
+
+    return res.send("Toi la chat bor tu van");
 }
 
 module.exports = {
