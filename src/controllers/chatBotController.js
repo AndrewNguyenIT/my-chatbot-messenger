@@ -128,7 +128,7 @@ let handleMessage = async (sender_psid, received_message) => {
         let userMessage = received_message.text;
 
         // Gọi OpenAI để lấy phản hồi từ AI
-        let aiResponse = await generate_response(userMessage);
+        let aiResponse = await chatBotService.generate_response(userMessage);
 
         response = { "text": aiResponse };
     } else {
@@ -140,21 +140,6 @@ let handleMessage = async (sender_psid, received_message) => {
     callSendAPI(sender_psid, response);
 };
 
-// function handlePostback(sender_psid, received_postback) {
-//     let response;
-
-//     // Get the payload for the postback
-//     let payload = received_postback.payload;
-
-//     // Set the response based on the postback payload
-//     if (payload === 'yes') {
-//         response = { "text": "Thanks!" }
-//     } else if (payload === 'no') {
-//         response = { "text": "Oops, try sending another image." }
-//     }
-//     // Send the message to acknowledge the postback
-//     callSendAPI(sender_psid, response);
-// }
 
 let handlePostback = async (sender_psid, received_postback) => {
     let response;
