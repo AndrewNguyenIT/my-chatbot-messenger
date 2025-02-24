@@ -12,7 +12,7 @@ const openai = new OpenAI({
 });
 
 // Định nghĩa đường dẫn
-const directory = "./src/services";  // Đúng với vị trí của index.faiss và docs.json
+const directory = "./src/database";  // Đúng với vị trí của index.faiss và docs.json
 
 // Hàm tải FAISS Index
 // Hàm load FAISS từ Python

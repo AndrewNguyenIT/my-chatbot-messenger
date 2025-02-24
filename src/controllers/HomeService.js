@@ -1,7 +1,7 @@
 import OpenAI from 'openai';
 import request from 'request';
 
-import { searchSimilarText } from "./faissService.js";
+import { searchSimilarText } from "../services/faissService";
 
 const dotenv = require("dotenv");
 
