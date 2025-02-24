@@ -1,12 +1,13 @@
 import express from "express";
 import homeControllers from "../controllers/HomeControllers";
+import chatBotController from "../controllers/chatBotController";
 
 let router = express.Router();
 let initWebRoutes = (app) => {
     router.get("/", homeControllers.getHomePage)
 
-    router.post('/webhook', homeControllers.postWebhook);
-    router.get('/webhook', homeControllers.getWebhook);
+    router.get("/webhook", chatBotController.getWebhook);
+    router.post("/webhook", chatBotController.postWebhook);
 
     return app.use('/', router);
 }
