@@ -34,7 +34,7 @@ async function loadFaissStore() {
 loadFaissStore();
 
 // Hàm tìm kiếm văn bản tương tự với FAISS
-async function searchSimilarText(query, top_k = 3) {
+async function searchSimilarText(query, top_k = 4) {
     if (!loadedVectorStore) {
         console.error("🚨 FAISS Store chưa được tải.");
         return ["FAISS Store chưa khả dụng."];
