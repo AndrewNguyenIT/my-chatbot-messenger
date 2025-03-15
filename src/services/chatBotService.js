@@ -36,7 +36,7 @@ const generate_response = async (query) => {
                 { role: "system", content: "Bạn là một chuyên gia tư vấn tuyển sinh." },
                 { role: "user", content: prompt }
             ],
-            temperature: 0.7,
+            temperature: 0.4,
             max_tokens: 200
         });
 
