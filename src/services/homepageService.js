@@ -69,7 +69,7 @@ let sendGuideToUseBot = (sender_psid) => {
 
             let response1 = {
                 "text": "Xin chào, Tôi là chatbot tư vấn tuyển sinh 😎" +
-                    "\n\nTôi có thể trả lời các câu hỏi về phương thức xét tuyển, ngành học, học phí thời gian đăng kí nhập học và nhiều câu hỏi khác nữa 😊"
+                    "\nTôi có thể trả lời các câu hỏi về phương thức xét tuyển, ngành học, học phí thời gian đăng kí nhập học và nhiều câu hỏi khác nữa 😊"
             };
             let response2 = {
                 text: "Để biết thêm nhiểu thông tin bạn có thể truy cập: 🤠" +

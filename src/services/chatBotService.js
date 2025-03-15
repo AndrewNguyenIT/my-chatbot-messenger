@@ -36,7 +36,7 @@ const generate_response = async (query) => {
                 { role: "system", content: "Bạn là một chuyên gia tư vấn tuyển sinh." },
                 { role: "user", content: prompt }
             ],
-            temperature: 0.4,
+            temperature: 0.5,
             max_tokens: 200
         });
 
@@ -57,24 +57,24 @@ let sendResponseWelcomeNewCustomer = (username, sender_psid) => {
                         "template_type": "generic",
                         "elements": [
                             {
-                                "title": "HaryPhamDev 's restaurant",
-                                "subtitle": "My restaurant is legendary, its classic wine collection equally so.",
-                                "image_url": "https://bit.ly/imageToSend",
+                                "title": "",
+                                "subtitle": "",
+                                "image_url": "",
                                 "buttons": [
                                     {
                                         "type": "postback",
-                                        "title": "SHOW MAIN MENU",
-                                        "payload": "MAIN_MENU",
+                                        "title": "",
+                                        "payload": "",
                                     },
                                     {
                                         "type": "postback",
-                                        "title": "RESERVE A TABLE",
-                                        "payload": "RESERVE_TABLE",
+                                        "title": "",
+                                        "payload": "",
                                     },
                                     {
                                         "type": "postback",
-                                        "title": "GUIDE TO USE THIS BOT",
-                                        "payload": "GUIDE_BOT",
+                                        "title": "",
+                                        "payload": "",
                                     }
                                 ],
                             }]
@@ -102,28 +102,28 @@ let sendMessageDefaultForTheBot = (sender_psid) => {
     return new Promise(async (resolve, reject) => {
         try {
             let response1 = {
-                "text": "Sorry, I'm just a bot, man ^^ \nYou can test me with all these buttons or try to make a reservation.\n\nThis video may help you to understand me 😉"
+                "text": ""
             };
             //send a media template
             let response2 = {
                 "attachment": {
                     "type": "template",
                     "payload": {
-                        "template_type": "media",
+                        "template_type": "",
                         "elements": [
                             {
                                 "media_type": "video",
-                                "url": "https://www.facebook.com/haryphamdev/videos/635394223852656/",
+                                "url": "",
                                 "buttons": [
                                     {
                                         "type": "web_url",
-                                        "url": "https://bit.ly/subscribe-haryphamdev",
+                                        "url": "",
                                         "title": "Watch more!"
                                     },
                                     {
                                         "type": "postback",
                                         "title": "Start over",
-                                        "payload": "RESTART_CONVERSATION"
+                                        "payload": ""
                                     }
                                 ]
                             }
